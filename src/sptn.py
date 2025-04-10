@@ -51,24 +51,34 @@ def merge_all(boreholes, layering, sptn, filtered_boreholes):
     )
 
     # Rename the columns
-    boreholes_uscs_sptn.columns = [
-        "Borehole ID", "Latitude", "Longitude", "Elevation (ft)",
-        "In-situ Test #", "Test Elevation (ft)", "SPTN",
-        "Layer #", "Layer Top Elevation (ft)", "Layer Bottom Elevation (ft)",
-        "Soil Description", "USCS", "Lithology", "Density / Consistency"
-    ]
+    boreholes_uscs_sptn.rename(
+        columns={
+            "Elevation": "Elevation (ft)",
+            "Borehole Test ID": "In-situ Test #",
+            "Test Depth": "Test Elevation (ft)",
+            "Sub Borehole Layer": "Layer #",
+            "Top Depth": "Layer Top Elevation (ft)",
+            "Bottom Depth": "Layer Bottom Elevation (ft)",
+            "Description": "Soil Description",
+        },
+        inplace=True
+    )
     
     return boreholes_uscs_sptn
 
 
 if __name__ == "__main__":
-    boreholes = pd.read_csv("file_1.csv")
+    boreholes = pd.read_csv("../../file_1.csv")
     boreholes = boreholes.iloc[:, [0, 3, 4, 5]]
     boreholes.columns = ["Borehole ID", "Latitude", "Longitude", "Elevation"]
-    layering = pd.read_csv("file_2.csv").drop(columns=["Document ID", "Latitude", "Longitude"])
-    sptn = pd.read_csv("file_3.csv").drop(columns=["Document ID", "Latitude", "Longitude"])
+    layering_columns = [
+        "Borehole ID", "Sub Borehole Layer", "Top Depth", "Bottom Depth", 
+        "Description", "Lithology", "USCS"
+    ]
+    layering = pd.read_csv("../../file_2_reUSCS.csv", usecols=layering_columns)
+    sptn = pd.read_csv("../../file_3.csv").drop(columns=["Document ID", "Latitude", "Longitude"])
     sptn = sptn.dropna()
 
     filtered_boreholes = get_filtered_boreholes(sptn, layering)
     boreholes_uscs_sptn = merge_all(boreholes, layering, sptn, filtered_boreholes)
-    boreholes_uscs_sptn.to_csv("boreholes_uscs_sptn.csv", index=False)
+    boreholes_uscs_sptn.to_csv("../data/boreholes_reuscs_sptn.csv", index=False)
