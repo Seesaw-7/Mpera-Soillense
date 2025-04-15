@@ -1,5 +1,6 @@
 import re
 
+
 def get_density(uscs, sptn):
     if type(uscs) != str: 
         return None
@@ -18,7 +19,7 @@ def get_density(uscs, sptn):
         elif sptn <= 10:
             return 'Loose'
         elif sptn <= 24:
-            return 'Medium'
+            return 'Medium Dense'
         elif sptn <= 50:
             return 'Dense'
         else:
@@ -29,7 +30,7 @@ def get_density(uscs, sptn):
         elif sptn <= 4:
             return 'Soft'
         elif sptn <= 8:
-            return 'Medium'
+            return 'Medium Stiff'
         elif sptn <= 15:
             return 'Stiff'
         elif sptn <= 30:
