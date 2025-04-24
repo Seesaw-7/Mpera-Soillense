@@ -8,6 +8,8 @@ This project aims to build a model and customer platform that learn from known b
 
 ## Code Structure
 
+Code is in `src/`
+
 The following python scripts are used to preprocess the data:
 
 - `cleanup_preprocess_USCSoriginal.py`: Cleans the original USCS classification data.
@@ -16,8 +18,17 @@ The following python scripts are used to preprocess the data:
 - `sptn.py`: Merges the SPT-N data with the USCS data and generates complete borehole data.
 - `density_consistency.py`: Adds soil density/consistency features derived from USCS and SPT-N values.
 - `kmz.py`: Converts the borehole data into a KMZ file for visualization in Google Earth.
+  
+The following `ipynb` are used to train and predict
 
-## Data Access
+- `model_cluster.ipynb`
+- `model.ipynb`
+
+## Run
+
+For `model_cluster.ipynb`, go to your desired block, and run with jupyter notebook interpreters.
+
+## Data Source and Ownership
 
 The data used in this project is owned by MPERA. The original data source is the Washington Geological Information Portal, a publicly available geologic information resource.
 
